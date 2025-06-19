@@ -8,7 +8,7 @@ from bots.telegram.misc.text_builder import build_text
 
 log = logging.getLogger(__name__)
 
-AFK_TIMEOUT = 60          # секунд
+AFK_TIMEOUT = 60
 
 def setup(bot: commands.Bot):
 
@@ -25,21 +25,18 @@ def setup(bot: commands.Bot):
     async def on_voice_state_update(member, before, after):
         uid = member.id
 
-        # интересуют только тот самый канал
         ch_before = before.channel.id if before.channel else None
         ch_after  = after.channel.id  if after.channel  else None
         in_target = VC_ID in (ch_before, ch_after)
         if not in_target:
             return
 
-        # ---- переходит / выходит из канала ----
         if ch_before != ch_after:
             STATE.muted_since.pop(uid, None)
             STATE.afk.discard(uid)
             await refresh_message()
             return
 
-        # ---- mute / unmute ----
         if not before.self_mute and after.self_mute:          # ВКЛ mute
             STATE.muted_since[uid] = time.time()
 

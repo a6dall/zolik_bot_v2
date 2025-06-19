@@ -25,7 +25,7 @@ d_bot = commands.Bot(
 def get_discord_bot() -> commands.Bot:
     return d_bot
 
-# ---------- автозагрузка events ----------
+# автозагрузка events
 def _autoload_events():
     pkg = "bots.discord.events"
     events_path = Path(__file__).with_name("events")
@@ -38,7 +38,6 @@ def _autoload_events():
             log.debug("registered discord event: %s", file.stem)
 
 _autoload_events()
-# -----------------------------------------
 
 async def start_discord_bot():
     setup_logging()

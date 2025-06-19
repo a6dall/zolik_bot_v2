@@ -1,7 +1,7 @@
 import logging
 from aiogram import types, Router
 from aiogram.enums import ParseMode
-from aiogram.filters import Command        # ⬅️ НОВЫЙ импорт!
+from aiogram.filters import Command
 
 from bots.telegram.keyboards.inline import main_keyboard
 from bots.telegram.misc.text_builder import build_text
@@ -12,7 +12,7 @@ log = logging.getLogger(__name__)
 
 def register(router: Router):
 
-    @router.message(Command("ds"))         # ⬅️ вместо commands=["ds"]
+    @router.message(Command("ds"))
     async def ds_handler(msg: types.Message):
         log.info("Received /ds from %s", msg.from_user.id)
         await get_discord_bot().wait_until_ready()

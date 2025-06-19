@@ -1,12 +1,8 @@
-# было раньше (причина цикла)
-# from bots.discord.bot import get_discord_bot
-
 import re
 from typing import Optional
 from common.state import STATE
 from common.settings import VC_ID
 
-# ─── MarkdownV2 safe escaping ────────────────────────────────────────────
 _MD_V2_SPECIALS = r"_*[\]()~`>#+-=|{}.!"
 
 def escape_md(text: str) -> str:
@@ -15,7 +11,6 @@ def escape_md(text: str) -> str:
     Используйте вместо устаревшего aiogram.utils.markdown.escape_md.
     """
     return re.sub(f"([{re.escape(_MD_V2_SPECIALS)}])", r"\\\1", text)
-# ─────────────────────────────────────────────────────────────────────────
 
 async def build_text(tg_bot, d_bot: Optional["commands.Bot"] = None) -> str:
     """
@@ -24,8 +19,7 @@ async def build_text(tg_bot, d_bot: Optional["commands.Bot"] = None) -> str:
     d_bot  — (опц.) экземпляр Discord-клиента, если уже есть.
     """
     if d_bot is None:
-        # ленивый импорт, выполняется ТОЛЬКО внутри функции
-        from bots.discord.bot import get_discord_bot      # ← вот так безопасно
+        from bots.discord.bot import get_discord_bot
         d_bot = get_discord_bot()
 
     caller_md = (
